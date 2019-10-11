@@ -29,33 +29,31 @@ export default class App extends React.Component{
   getAccess = () => {
     // axios({
     //   method: 'GET',
-    //   url: 'https://oauth.yandex.ru/authorize',
+    //   url: '/authorize',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
     //   params: {
     //     response_type: 'token',
     //     client_id: '3f4e43ddc6894a26ba243cf1e9713a09'
     //   },
+    //   withCredentials: true,
     // }).then(res => {
     //   console.log(res)
     // }).catch(err=> {
     //   console.log(err);
       
     // })
-    var xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
-    // 2. Конфигурируем его: GET-запрос на URL 'phones.json'
-    xhr.open('POST', 'https://oauth.yandex.ru/authorize', true);
-    xhr.setRequestHeader('client_id', '3f4e43ddc6894a26ba243cf1e9713a09')
-    xhr.setRequestHeader('response_type', 'token')
-
-    // 3. Отсылаем запрос
-    xhr.send();
-    if (xhr.status != 200) {
-      // обработать ошибку
-      console.log( {xhr} ); // пример вывода: 404: Not Found
-    } else {
-      // вывести результат
-      console.log( xhr.responseText ); // responseText -- текст ответа.
-    }
+    // fetch('/authorize',{
+    //       response_type: 'token',
+    //       client_id: '3f4e43ddc6894a26ba243cf1e9713a09'
+    //     })
+    // .then(res => {
+    //     console.log(res)
+    //   }).catch(err=> {
+    //     console.log(err);
+        
+    //   })
   }
   getFiles = () => {
     axios({
@@ -118,8 +116,8 @@ export default class App extends React.Component{
     })
   }
   componentDidMount(){
-    this.getFiles()
-    // this.getAccess()
+    // this.getFiles()
+    this.getAccess()
   }
   render(){
     let {filesNFolders, path} = this.state
@@ -139,9 +137,12 @@ export default class App extends React.Component{
                     <ArrowBackIosIcon style={{marginLeft: 5}}/>
               </IconButton>
               }
+              <a href='https://oauth.yandex.ru/authorize?response_type=token&client_id=3f4e43ddc6894a26ba243cf1e9713a09&redirect_uri=http://localhost:3000/'>
               <Typography variant="h6" noWrap style={{position: 'absolute', width: '100%', display: 'flex', justifyContent: 'center'}}>
                 Тестовое Hackaton_URFU
               </Typography>
+              </a>
+                
               <Typography variant="h6" noWrap>
                 Путь: {path}
               </Typography>
